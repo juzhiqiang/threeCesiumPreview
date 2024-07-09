@@ -14,11 +14,14 @@
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
     "@umijs/max": "^4.3.1",
-    "antd": "^5.4.0"
+    "antd": "^5.4.0",
+    "three": "^0.166.1",
+    "umi-cesium-plugin": "^1.0.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "@types/three": "^0.166.0",
     "husky": "^9",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
