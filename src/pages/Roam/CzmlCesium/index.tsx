@@ -47,6 +47,7 @@ const CzmlCesiumRoam: React.FC = () => {
         // 实时调整位置
         function adjust() {
           if (!viewer.current) return;
+          // console.log(entity.current);
           if (viewer.current.clock.shouldAnimate === true) {
             // 获取偏向角
             const ori = orientation?.getValue?.(
@@ -57,8 +58,18 @@ const CzmlCesiumRoam: React.FC = () => {
               viewer.current.clock.currentTime,
             );
 
-            if (!ori || !center)
-              return (viewer.current.clock.shouldAnimate = false);
+            const secondsDifference = Cesium.JulianDate.secondsDifference(
+              viewer.current.clock.currentTime,
+              Cesium.JulianDate.fromIso8601('2023-03-08T15:00:00Z'),
+            );
+            if (
+              !ori ||
+              !center ||
+              (secondsDifference < -8200 && secondsDifference > -8201)
+            ) {
+              viewer.current.clock.shouldAnimate = false;
+              return;
+            }
 
             // 1、由四元数计算三维旋转矩阵
             const mtx3 = Cesium.Matrix3.fromQuaternion(ori);
@@ -78,7 +89,7 @@ const CzmlCesiumRoam: React.FC = () => {
               Cesium.Math.toDegrees(pitchTemp) - 12,
             );
             // 视角高度，根据模型大小调整
-            const range = 140.0;
+            const range = 50.0;
             // 动态改变模型视角
             viewer.current.camera.lookAt(
               center,
@@ -90,7 +101,6 @@ const CzmlCesiumRoam: React.FC = () => {
         onTickEvent.current.clock =
           viewer.current.clock.onTick.addEventListener(adjust);
       });
-    return () => {};
   };
 
   useEffect(() => {
@@ -103,16 +113,20 @@ const CzmlCesiumRoam: React.FC = () => {
    * @param type 操作类型，可选值为 'modelSite'、'start'、'stop'
    * @returns 无返回值
    */
-  const handle = (type: 'modelSite' | 'start' | 'stop') => {
+  const handle = (type: 'start' | 'stop' | 'reset') => {
     if (!viewer.current) return;
-    if (type === 'modelSite') {
-      viewer.current.trackedEntity = entity.current;
-    }
+
     if (type === 'start') {
       viewer.current.clock.shouldAnimate = true;
     }
     if (type === 'stop') {
       viewer.current.clock.shouldAnimate = false;
+    }
+    if (type === 'reset') {
+      viewer.current.clock.currentTime = Cesium.JulianDate.fromIso8601(
+        '2023-03-08T10:00:00Z',
+      );
+      viewer.current.clock.shouldAnimate = true;
     }
   };
 
@@ -127,9 +141,9 @@ const CzmlCesiumRoam: React.FC = () => {
         <div ref={dom} className={styles.cesium}></div>
 
         <div className={styles.bottom}>
-          <Button onClick={() => handle('modelSite')}>模型定位</Button>
           <Button onClick={() => handle('start')}>开始漫游</Button>
           <Button onClick={() => handle('stop')}>停止漫游</Button>
+          <Button onClick={() => handle('reset')}>重新开始</Button>
         </div>
       </div>
     </PageContainer>

@@ -24,9 +24,14 @@ export default defineConfig({
       path: '/cesium',
       routes: [
         {
-          name: '第一人称飞行',
+          name: '飞行漫游 czml',
           path: '/cesium/czmlRoam',
           component: './Roam/CzmlCesium',
+        },
+        {
+          name: '飞行漫游 经纬度插值',
+          path: '/cesium/lnglatRoam',
+          component: './Roam/LnglatRoam',
         },
       ],
     },

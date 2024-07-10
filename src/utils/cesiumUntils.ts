@@ -31,7 +31,7 @@ export class CesiumUntils {
   /**
    * 鼠标左键点击事件
    * */
-  leftClick = () => {
+  leftClick() {
     return new Promise((resolve, reject) => {
       this.handlePoint.setInputAction((event: Cesium.ScreenSpaceEventType) => {
         let cartesianCoordinate = this.viewer.scene.pickPosition(
@@ -41,5 +41,38 @@ export class CesiumUntils {
         resolve(position);
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     });
-  };
+  }
+
+  drawTravelPoint(data: any, start: Cesium.JulianDate, timeStepInSeconds: number) {
+    if (!Array.isArray(data)) return '数据格式错误';
+
+    // SampledPositedProperty 存储雷达样本序列中每个样本的位置和时间戳
+    const positionProperty = new Cesium.SampledPositionProperty();
+    for (let i = 0; i < data.length; i++) {
+      const point = data[i];
+
+      // 当前点位所在时间
+      const time = Cesium.JulianDate.addSeconds(
+        start,
+        i * timeStepInSeconds,
+        new Cesium.JulianDate(),
+      );
+      // 当前点位经纬度
+      const position = Cesium.Cartesian3.fromDegrees(
+        point.longitude,
+        point.latitude,
+        point.height,
+      );
+
+      this.viewer.entities.add({
+        description: `Location: (${point.longitude}, ${point.latitude}, ${point.height})`,
+        position: position,
+        point: { pixelSize: 10, color: Cesium.Color.RED },
+      });
+      // 保存点位位置跟时间
+      positionProperty.addSample(time, position);
+    }
+
+    return positionProperty;
+  }
 }
