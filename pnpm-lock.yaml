@@ -8,6 +8,7 @@ specifiers:
   '@types/three': ^0.166.0
   '@umijs/max': ^4.3.1
   antd: ^5.4.0
+  gsap: ^3.12.5
   husky: ^9
   lint-staged: ^13.2.0
   prettier: ^2.8.7
@@ -22,6 +23,7 @@ dependencies:
   '@ant-design/pro-components': 2.7.10_antd@5.19.1
   '@umijs/max': 4.3.1_2hf6hxssrqqrk6pzkcanizpdau
   antd: 5.19.1
+  gsap: registry.npmjs.org/gsap/3.12.5
   three: registry.npmjs.org/three/0.166.1
   umi-cesium-plugin: registry.npmjs.org/umi-cesium-plugin/1.0.6
 
@@ -11412,6 +11414,12 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz}
     name: grapheme-splitter
     version: 1.0.4
+    dev: false
+
+  registry.npmjs.org/gsap/3.12.5:
+    resolution: {integrity: sha512-srBfnk4n+Oe/ZnMIOXt3gT605BX9x5+rh/prT2F1SsNJsU1XuMiP0E2aptW481OnonOGACZWBqseH5Z7csHxhQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/gsap/-/gsap-3.12.5.tgz}
+    name: gsap
+    version: 3.12.5
     dev: false
 
   registry.npmjs.org/image-size/0.5.5:

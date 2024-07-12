@@ -33,6 +33,16 @@ export default defineConfig({
           path: '/cesium/lnglatRoam',
           component: './Roam/LnglatRoam',
         },
+        {
+          name: '第一人称漫游',
+          path: '/cesium/personRoam',
+          component: './Roam/PersonRoam',
+        },
+        {
+          name: '楼体拆分',
+          path: '/cesium/buildingSplit',
+          component: './BuildingSplit',
+        },
       ],
     },
     {

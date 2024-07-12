@@ -10,7 +10,6 @@ import styles from './index.less';
 const CzmlCesiumRoam: React.FC = () => {
   const dom = useRef<HTMLDivElement>(null);
   const viewer = useRef<Cesium.Viewer>();
-  const entity = useRef<Cesium.Entity>();
   const cesiumUntils = useRef<any>({});
 
   const init = async () => {

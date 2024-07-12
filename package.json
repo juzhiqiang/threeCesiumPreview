@@ -15,6 +15,7 @@
     "@ant-design/pro-components": "^2.4.4",
     "@umijs/max": "^4.3.1",
     "antd": "^5.4.0",
+    "gsap": "^3.12.5",
     "three": "^0.166.1",
     "umi-cesium-plugin": "^1.0.6"
   },
